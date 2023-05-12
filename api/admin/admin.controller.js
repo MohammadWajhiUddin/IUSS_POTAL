@@ -10,7 +10,8 @@ const {
     add_student_learning,
     add_teacher_learning,
     add_personal_traits,
-    view_faculty_grading
+    view_faculty_grading,
+    get_staff_by_campus_id
 } = require("./admin.service");
 
 
@@ -21,8 +22,8 @@ const {sign} =  require("jsonwebtoken")
 module.exports={
     create_user:(req,res)=>{
         const body = req.body;
-        const salt = genSaltSync(10);
-        body.user_password = hashSync(body.user_password,salt);
+        //const salt = genSaltSync(10);
+       // body.user_password = hashSync(body.user_password,salt);
         create_user(body,(err,results)=>{
             if(err){
                 console.log(err)
@@ -40,36 +41,30 @@ module.exports={
     
     user_login: (req, res) => {
         const body = req.body;
-        user_login(body.user_email, (err, results) => {
-          if (err) {
-            console.log(err);
-          }
-          if (!results) {
-            return res.json({
-              success: 0,
-              data: "Invalid email or password"
-            });
-          }
-          const result = compareSync(body.user_password, results.user_password);
-          if (result) {
-            results.password = undefined;
-            const jsontoken = sign({ result: results }, "iussrabbia", {
-              expiresIn: "1h"
-            });
-            return res.json({
-              success: 1,
-              message: "login successfully",
-              token: jsontoken,
-              data:results,
+        user_login(body,(err,results)=>{
 
+        if(err){
+            return res.status(500).json({
+                success:0,
+                message: "Database Connection Error",
             });
-          } else {
+        }
+        if(!results){
+            console.log(err)
             return res.json({
-              success: 0,
-              data: "Invalid email or password"
+                success:0,
+                message: "Invalid Email Or Password",
             });
-          }
+        }
+       // const jsontoken = sign({result:results.admin_email+results.admin_password},"SZABIST_NCBC_DASHBOARD",{expiresIn:"1h"});
+        return res.status(200).json({
+            success:1,
+            message: "User Successfully Login",
+            data:results,
+        
+
         });
+        })
       },
 
     add_employee:(req,res)=>{
@@ -216,9 +211,9 @@ module.exports={
     },
 
     view_faculty_grading:(req,res)=>{
-        const employee_id = req.params.employee_id;
+        const staff_id = req.params.staff_id;
 
-        view_faculty_grading(employee_id,(err,results)=>{
+        view_faculty_grading(staff_id,(err,results)=>{
             if(err){
                 console.log(err)
                 return res.status(500).json({
@@ -239,5 +234,27 @@ module.exports={
                 data:results,
             });
         })
-    }
+    },
+
+
+    get_staff_by_campus_id:(req,res)=>{
+        const staff_campus_id = req.params.staff_campus_id;
+        get_staff_by_campus_id(staff_campus_id,(err,results)=>{
+            if(err){
+               return
+            }
+            if(!results){
+                return res.status(500).json({
+                    success:0,
+                    message:"No Record Found"
+                })
+            }
+            return res.status(200).json({
+                success:1,
+                message:"Staff data Successfully Found",
+                data:results
+            })
+        })
+    },
+
 }

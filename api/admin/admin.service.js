@@ -4,7 +4,7 @@ module.exports={
     
     create_user:(data,callBack)=>{
         var query;
-        query = `insert into usersaccounts (user_first_name,user_last_name,user_email,user_cell_no,user_password,user_role) value (?,?,?,?,?,?)`;
+        query = `insert into usersaccounts (user_first_name,user_last_name,user_email,user_cell_no,user_password,user_role,campus_id) value (?,?,?,?,?,?,?)`;
         pool.getConnection(function (err, connection) {
             try{
             if (err) {               
@@ -18,7 +18,8 @@ module.exports={
                 data.user_email,
                 data.user_cell_no,
                 data.user_password,
-                data.user_role
+                data.user_role,
+                data.campus_id
 
             ], function (err, results) {
              
@@ -44,10 +45,12 @@ module.exports={
       
     },
 
-    user_login: (email, callBack) => {
+    user_login: (body, callBack) => {
         pool.query(
-          `select * from usersaccounts where user_email = ?`,
-          [email],
+          `select * from usersaccounts where user_email = ? and user_password = ?`,
+          [body.user_email,
+            body.user_password],
+            
           (error, results, fields) => {
             if (error) {
               callBack(error);
@@ -177,7 +180,7 @@ module.exports={
 
     add_class_room_teaching:(data,callBack)=>{
         var query;
-        query = `insert into classroom_teaching (employee_id,
+        query = `insert into classroom_teaching (staff_id,
             Maintaining_soft_boards_Classroom_teaching_and_learning_resourc,
             Details_on_white_board,
             students_are_engaged_during_lessons,
@@ -213,7 +216,7 @@ module.exports={
             }
 
             connection.query(query,[ 
-                data.employee_id,
+                data.staff_id,
                 data.one_point_one_a,
                 data.one_point_one_b,
                 data.one_point_one_c,
@@ -266,7 +269,7 @@ module.exports={
 
     add_personal_disposition:(data,callBack)=>{
         var query;
-        query = `insert into personal_disposition (employee_id,Maintains_positive_relationship_with_the_students,
+        query = `insert into personal_disposition (staff_id,Maintains_positive_relationship_with_the_students,
             Maintains_positive_relationship_with_the_parents,
             Maintains_collaborative_relationship_with_colleagues,
             Creates_a_positive_environment_in_the_classroom_and_beyond,
@@ -301,7 +304,7 @@ module.exports={
             }
 
             connection.query(query,[ 
-                data.employee_id,
+                data.staff_id,
                 data.two_point_one_a,
                 data.two_point_one_b,
                 data.two_point_one_c,
@@ -354,7 +357,7 @@ module.exports={
 
       add_student_learning:(data,callBack)=>{
         var query;
-        query = `insert into student_learning (employee_id,
+        query = `insert into student_learning (staff_id,
             Studentsresponseonvariousstrategies,
             Studentsaremotivatedforlearning,	
             Implementappliedknowledgewithvariousreferences,
@@ -390,7 +393,7 @@ module.exports={
             }
 
             connection.query(query,[ 
-                data.employee_id,
+                data.staff_id,
                 data.three_point_one_a,
                 data.three_point_one_b,
                 data.three_point_one_c,
@@ -442,7 +445,7 @@ module.exports={
 
       add_teacher_learning:(data,callBack)=>{
         var query;
-        query = `insert into teacher_learning (employee_id,
+        query = `insert into teacher_learning (staff_id,
             Usesdifferentstrategiesforstudentssuchasbrainstorming,
             Effortsforstudentmotivation,
  Encouragethestudentsforaskingquestionsrelatedtothesubject,
@@ -478,7 +481,7 @@ Reflectstrongcommandinassignedsubject,
             }
 
             connection.query(query,[ 
-                data.employee_id,
+                data.staff_id,
                 data.four_point_one_a,
                 data.four_point_one_b,
                 data.four_point_one_c,
@@ -530,7 +533,7 @@ Reflectstrongcommandinassignedsubject,
 
       add_personal_traits:(data,callBack)=>{
         var query;
-        query = `insert into  personal_traits (employee_id,
+        query = `insert into  personal_traits (staff_id,
             Dressesprofessionallyandappropriately,
             Inspirestudentsthroughverbalcommunication,
             Upholdtheimagetorepresenttheorganizationinpositively,
@@ -566,7 +569,7 @@ Reflectstrongcommandinassignedsubject,
             }
 
             connection.query(query,[ 
-                data.employee_id,
+                data.staff_id,
                 data.five_point_one_a,
                 data.five_point_one_b,
                 data.five_point_one_c,
@@ -617,18 +620,56 @@ Reflectstrongcommandinassignedsubject,
       },
 
 
-      view_faculty_grading: (employee_id, callBack) => {
+      view_faculty_grading: (staff_id, callBack) => {
         pool.query(
-          `select * from classroom_teaching, personal_disposition, personal_traits, student_learning,teacher_learning where classroom_teaching.employee_id = ?`,
-          [employee_id],
+          `select * from classroom_teaching, personal_disposition, personal_traits, student_learning,teacher_learning where classroom_teaching.staff_id = ?`,
+          [staff_id],
           (error, results, fields) => {
             if (error) {
               callBack(error);
             }
-            return callBack(null, results[0]);
+            return callBack(null, results);
           }
         );
       },
+
+
+      get_staff_by_campus_id:(staff_campus_id,callBack)=>{
+        var query;
+        query = `select * from staff_details where 	staff_campus_id = ?`,
+        pool.getConnection(function (err, connection) {
+            try{
+            if (err) {               
+                console.log(err);
+                // connection.release(); <-- this line is in error, as if there was an error getting a connection, then you won't have a connection to release
+                throw err;
+            }
+            connection.query(query,[ 
+                [staff_campus_id],
+            
+            ], function (err, results) {
+             
+                connection.release();
+                 if (err) {
+                   callBack(error);
+                 } 
+                 else {
+                    callBack(null, results);
+                }
+            });
+        }
+        catch (e) {
+        console.log("entering catch block");
+        console.log(e);
+                    try{
+                    connection.release();
+                    }catch(e)
+                    {}
+        console.log("leaving catch block");
+        }
+        }); 
+    
+    },
     }
 
 

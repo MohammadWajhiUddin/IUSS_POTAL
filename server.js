@@ -1,4 +1,5 @@
-
+const hostname = '178.18.246.180';
+const port = 5000;
 const express = require('express');
 const app = express();
 
@@ -57,6 +58,6 @@ const storage = multer.diskStorage({
 
 
 
-app.listen(PORT,()=>{
-     console.log(`application is listening on port `)
-})
+  app.listen(port, hostname, ()=>{
+    console.log(`IUSS PORTAL = http://${hostname}:${port}`);
+    });

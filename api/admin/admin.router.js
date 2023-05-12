@@ -11,7 +11,8 @@ const {
     add_student_learning,
     add_teacher_learning,
     add_personal_traits,
-    view_faculty_grading
+    view_faculty_grading,
+    get_staff_by_campus_id
 } = require("./admin.controller")
 
 router.post("/create_user",create_user);
@@ -24,7 +25,8 @@ router.post("/add_personal_disposition",add_personal_disposition);
 router.post("/add_student_learning",add_student_learning);
 router.post("/add_teacher_learning",add_teacher_learning);
 router.post("/add_personal_traits",add_personal_traits);
-router.get("/view_faculty_grading/:employee_id",view_faculty_grading)
+router.get("/view_faculty_grading/:staff_id",view_faculty_grading);
+router.get("/get_staff_by_campus_id/:staff_campus_id",get_staff_by_campus_id)
 
 
 module.exports = router;
