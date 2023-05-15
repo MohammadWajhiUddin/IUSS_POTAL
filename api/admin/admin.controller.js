@@ -11,7 +11,8 @@ const {
     add_teacher_learning,
     add_personal_traits,
     view_faculty_grading,
-    get_staff_by_campus_id
+    get_staff_by_campus_id,
+    get_all_staff
 } = require("./admin.service");
 
 
@@ -240,6 +241,25 @@ module.exports={
     get_staff_by_campus_id:(req,res)=>{
         const staff_campus_id = req.params.staff_campus_id;
         get_staff_by_campus_id(staff_campus_id,(err,results)=>{
+            if(err){
+               return
+            }
+            if(!results){
+                return res.status(500).json({
+                    success:0,
+                    message:"No Record Found"
+                })
+            }
+            return res.status(200).json({
+                success:1,
+                message:"Staff data Successfully Found",
+                data:results
+            })
+        })
+    },
+
+    get_all_staff:(req,res)=>{
+        get_all_staff((err,results)=>{
             if(err){
                return
             }

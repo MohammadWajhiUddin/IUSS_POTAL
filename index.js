@@ -57,6 +57,6 @@ const storage = multer.diskStorage({
 
 
 
-app.listen(PORT,()=>{
-     console.log(`application is listening on port `)
+  app.listen(process.env.port,()=>{
+    console.log("server up and sadasd on port ", process.env.port)
 })

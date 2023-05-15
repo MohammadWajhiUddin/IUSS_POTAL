@@ -3,27 +3,26 @@ require("dotenv").config();
 
 const pool = mysql.createPool({
   host:'busytech.co',
-  user:"busytech_asGsw",
-  password:"nHU)Db4Dd27%",
-  database:"busytech_ss_dash",
-  connectTimeout: 100000,
-  acquireTimeout: 60000,
-  connectionLimit: 100,
-  queueLimit: 10,
-  waitForConnection: true
-    
-})
-
-/*
- host:'172.16.17.30',
-    user:"rabbia_tariq_iu",
-    password:"Iuss@123$",
-    database:"rabbia_tariq_iu",
+    user:"busytech_asGsw",
+    password:"nHU)Db4Dd27%",
+    database:"busytech_ss_dash",
     connectTimeout: 100000,
     acquireTimeout: 60000,
     connectionLimit: 100,
     queueLimit: 10,
     waitForConnection: true
+})
+
+/*
+host:'168.235.81.84',
+  user:"iuss_db",
+  database:"iuss_db",
+  password:"iuss123",
+  connectTimeout: 100000,
+  acquireTimeout: 60000,
+  connectionLimit: 100,
+  queueLimit: 10,
+  waitForConnection: true
 
   host:'172.16.17.30',
     user:"rabbia_tariq_iu",
