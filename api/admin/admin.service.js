@@ -706,6 +706,60 @@ Reflectstrongcommandinassignedsubject,
       }); 
   
   },
+
+  ApproveFaculty:(data,callBack)=>{
+    pool.query(
+        `update staff_details set approved= ?    where staff_id = ?`,
+        [
+            data.approved,
+            data.staff_id
+
+        ],
+        (error,results)=>{
+            if(error){
+                callBack(error)
+            }
+            return callBack(null,results)
+        }
+    )
+},
+
+get_approved_staff_for_director:(staff_campus_id,callBack)=>{
+  var query;
+        query = `select * from staff_details where 	staff_campus_id = ? and approved = 1`,
+        pool.getConnection(function (err, connection) {
+            try{
+            if (err) {               
+                console.log(err);
+                // connection.release(); <-- this line is in error, as if there was an error getting a connection, then you won't have a connection to release
+                throw err;
+            }
+            connection.query(query,[ 
+                [staff_campus_id,
+                  ],
+            
+            ], function (err, results) {
+             
+                connection.release();
+                 if (err) {
+                   callBack(error);
+                 } 
+                 else {
+                    callBack(null, results);
+                }
+            });
+        }
+        catch (e) {
+        console.log("entering catch block");
+        console.log(e);
+                    try{
+                    connection.release();
+                    }catch(e)
+                    {}
+        console.log("leaving catch block");
+        }
+        }); 
+},
     }
 
 

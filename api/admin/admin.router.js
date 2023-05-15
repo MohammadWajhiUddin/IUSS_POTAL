@@ -13,7 +13,9 @@ const {
     add_personal_traits,
     view_faculty_grading,
     get_staff_by_campus_id,
-    get_all_staff
+    get_all_staff,
+    ApproveFaculty,
+    get_approved_staff_for_director
 } = require("./admin.controller")
 
 router.post("/create_user",create_user);
@@ -27,8 +29,10 @@ router.post("/add_student_learning",add_student_learning);
 router.post("/add_teacher_learning",add_teacher_learning);
 router.post("/add_personal_traits",add_personal_traits);
 router.get("/view_faculty_grading/:staff_id",view_faculty_grading);
-router.get("/get_staff_by_campus_id/:staff_campus_id",get_staff_by_campus_id)
-router.get("/get_all_staff",get_all_staff)
+router.get("/get_staff_by_campus_id/:staff_campus_id",get_staff_by_campus_id);
+router.get("/get_all_staff",get_all_staff);
+router.patch("/ApproveFaculty",ApproveFaculty);
+router.get("/get_approved_staff_for_director/:staff_campus_id",get_approved_staff_for_director);
 
 
 module.exports = router;

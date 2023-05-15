@@ -12,7 +12,9 @@ const {
     add_personal_traits,
     view_faculty_grading,
     get_staff_by_campus_id,
-    get_all_staff
+    get_all_staff,
+    ApproveFaculty,
+    get_approved_staff_for_director
 } = require("./admin.service");
 
 
@@ -260,6 +262,45 @@ module.exports={
 
     get_all_staff:(req,res)=>{
         get_all_staff((err,results)=>{
+            if(err){
+               return
+            }
+            if(!results){
+                return res.status(500).json({
+                    success:0,
+                    message:"No Record Found"
+                })
+            }
+            return res.status(200).json({
+                success:1,
+                message:"Staff data Successfully Found",
+                data:results
+            })
+        })
+    },
+    ApproveFaculty: (req, res) => {
+        const body = req.body;
+        ApproveFaculty(body, (err,results) => {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          if(!results){
+              return res.json({
+                  success:0,
+                  message:"failed to approve Faculty"
+              });
+          }
+          return res.json({
+            success: 1,
+            message: " approve updated successfully"
+          });
+        })
+      },
+
+      get_approved_staff_for_director:(req,res)=>{
+        const staff_campus_id = req.params.staff_campus_id;
+        get_approved_staff_for_director(staff_campus_id,(err,results)=>{
             if(err){
                return
             }
