@@ -1,3 +1,4 @@
+let PORT = process.env.PORT || 5000
 
 const express = require('express');
 const app = express();
@@ -57,6 +58,12 @@ const storage = multer.diskStorage({
 
 
 
+<<<<<<< HEAD
   app.listen(process.env.port,()=>{
     console.log("server up and sadasd on port ", process.env.port)
 })
+=======
+app.listen(PORT,()=>{
+     console.log(`application is listening on port `)
+})
+>>>>>>> 12c0afa6dffd8bca4d66392c2520ffa5e9c14189
