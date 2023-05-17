@@ -234,7 +234,7 @@ module.exports={
             return res.status(200).json({
                 success:1,
                 message:"Result Successfully Fetched",
-                data:results,
+                data:results[0],
             });
         })
     },

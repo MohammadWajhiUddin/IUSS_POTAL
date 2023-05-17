@@ -1,6 +1,8 @@
 let PORT = process.env.PORT || 5000
 
 const express = require('express');
+const cors = require("cors");
+
 const app = express();
 
 const multer = require('multer')
@@ -19,6 +21,7 @@ app.use(function(req,res,next){
     next();
 })
 
+app.use(cors());
 
 app.use("/api/users",adminRouter);
 
