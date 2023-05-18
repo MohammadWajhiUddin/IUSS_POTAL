@@ -622,7 +622,7 @@ Reflectstrongcommandinassignedsubject,
 
       view_faculty_grading: (staff_id, callBack) => {
         pool.query(
-          `select * from classroom_teaching, personal_disposition, personal_traits, student_learning,teacher_learning where classroom_teaching.staff_id = ?`,
+          `select * from classroom_teaching, personal_disposition, personal_traits, student_learning,teacher_learning where classroom_teaching.staff_id= ? `,
           [staff_id],
           (error, results, fields) => {
             if (error) {
