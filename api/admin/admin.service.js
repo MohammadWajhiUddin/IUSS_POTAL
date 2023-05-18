@@ -760,6 +760,343 @@ get_approved_staff_for_director:(staff_campus_id,callBack)=>{
         }
         }); 
 },
+
+get_classroom_teaching_data: (staff_id, callBack) => {
+    var query;
+    query = `select * from classroom_teaching where staff_id = ?`,
+    pool.getConnection(function (err, connection) {
+        try{
+        if (err) {               
+            console.log(err);
+            // connection.release(); <-- this line is in error, as if there was an error getting a connection, then you won't have a connection to release
+            throw err;
+        }
+        connection.query(query,[ 
+            [staff_id],
+        
+        ], function (err, results) {
+         
+            connection.release();
+             if (err) {
+               callBack(error);
+             } 
+             else {
+                callBack(null, results);
+            }
+        });
+    }
+    catch (e) {
+    console.log("entering catch block");
+    console.log(e);
+                try{
+                connection.release();
+                }catch(e)
+                {}
+    console.log("leaving catch block");
+    }
+    }); 
+    
+  },
+
+  get_personal_traits_data: (staff_id, callBack) => {
+    var query;
+    query = `select * from personal_traits where staff_id = ?`,
+    pool.getConnection(function (err, connection) {
+        try{
+        if (err) {               
+            console.log(err);
+            // connection.release(); <-- this line is in error, as if there was an error getting a connection, then you won't have a connection to release
+            throw err;
+        }
+        connection.query(query,[ 
+            [staff_id],
+        
+        ], function (err, results) {
+         
+            connection.release();
+             if (err) {
+               callBack(error);
+             } 
+             else {
+                callBack(null, results);
+            }
+        });
+    }
+    catch (e) {
+    console.log("entering catch block");
+    console.log(e);
+                try{
+                connection.release();
+                }catch(e)
+                {}
+    console.log("leaving catch block");
+    }
+    }); 
+    
+  },
+
+  get_personal_disposition_data: (staff_id, callBack) => {
+    var query;
+    query = `select * from personal_disposition where staff_id = ?`,
+    pool.getConnection(function (err, connection) {
+        try{
+        if (err) {               
+            console.log(err);
+            // connection.release(); <-- this line is in error, as if there was an error getting a connection, then you won't have a connection to release
+            throw err;
+        }
+        connection.query(query,[ 
+            [staff_id],
+        
+        ], function (err, results) {
+         
+            connection.release();
+             if (err) {
+               callBack(error);
+             } 
+             else {
+                callBack(null, results);
+            }
+        });
+    }
+    catch (e) {
+    console.log("entering catch block");
+    console.log(e);
+                try{
+                connection.release();
+                }catch(e)
+                {}
+    console.log("leaving catch block");
+    }
+    }); 
+    
+  },
+
+  get_student_learning_data: (staff_id, callBack) => {
+    var query;
+    query = `select * from student_learning where staff_id = ?`,
+    pool.getConnection(function (err, connection) {
+        try{
+        if (err) {               
+            console.log(err);
+            // connection.release(); <-- this line is in error, as if there was an error getting a connection, then you won't have a connection to release
+            throw err;
+        }
+        connection.query(query,[ 
+            [staff_id],
+        
+        ], function (err, results) {
+         
+            connection.release();
+             if (err) {
+               callBack(error);
+             } 
+             else {
+                callBack(null, results);
+            }
+        });
+    }
+    catch (e) {
+    console.log("entering catch block");
+    console.log(e);
+                try{
+                connection.release();
+                }catch(e)
+                {}
+    console.log("leaving catch block");
+    }
+    }); 
+    
+  },
+
+  get_teacher_learning_data: (staff_id, callBack) => {
+    var query;
+    query = `select * from teacher_learning where staff_id = ?`,
+    pool.getConnection(function (err, connection) {
+        try{
+        if (err) {               
+            console.log(err);
+            // connection.release(); <-- this line is in error, as if there was an error getting a connection, then you won't have a connection to release
+            throw err;
+        }
+        connection.query(query,[ 
+            [staff_id],
+        
+        ], function (err, results) {
+         
+            connection.release();
+             if (err) {
+               callBack(error);
+             } 
+             else {
+                callBack(null, results);
+            }
+        });
+    }
+    catch (e) {
+    console.log("entering catch block");
+    console.log(e);
+                try{
+                connection.release();
+                }catch(e)
+                {}
+    console.log("leaving catch block");
+    }
+    }); 
+    
+  },
+  add_comments:(data,callBack)=>{
+    var query;
+    query = `insert into comments_for_staff (staff_id,comments_from_branch_head) value (?,?)`;
+    pool.getConnection(function (err, connection) {
+        try{
+        if (err) {               
+            console.log(err);
+            // connection.release(); <-- this line is in error, as if there was an error getting a connection, then you won't have a connection to release
+            throw err;
+        }
+
+        connection.query(query,[ 
+            data.staff_id,
+            data.comments_from_branch_head,
+         ], function (err, results) {
+         
+            connection.release();
+             if (err) {
+               callBack(err);
+             } 
+             else {
+                callBack(null, results);
+            }
+        });
+    }
+    catch (e) {
+    console.log("entering catch block");
+    console.log(e);
+                try{
+                connection.release();
+                }catch(e)
+                {}
+    console.log("leaving catch block");
+    }
+    }); 
+  
+  },
+
+  get_comments: (staff_id, callBack) => {
+    var query;
+    query = `select * from comments_for_staff where staff_id = ?`,
+    pool.getConnection(function (err, connection) {
+        try{
+        if (err) {               
+            console.log(err);
+            // connection.release(); <-- this line is in error, as if there was an error getting a connection, then you won't have a connection to release
+            throw err;
+        }
+        connection.query(query,[ 
+            [staff_id],
+        
+        ], function (err, results) {
+         
+            connection.release();
+             if (err) {
+               callBack(error);
+             } 
+             else {
+                callBack(null, results);
+            }
+        });
+    }
+    catch (e) {
+    console.log("entering catch block");
+    console.log(e);
+                try{
+                connection.release();
+                }catch(e)
+                {}
+    console.log("leaving catch block");
+    }
+    }); 
+    
+  },
+
+  add_status:(data,callBack)=>{
+    var query;
+    query = `insert into form_status (staff_id,status) value (?,?)`;
+    pool.getConnection(function (err, connection) {
+        try{
+        if (err) {               
+            console.log(err);
+            // connection.release(); <-- this line is in error, as if there was an error getting a connection, then you won't have a connection to release
+            throw err;
+        }
+
+        connection.query(query,[ 
+            data.staff_id,
+            data.status,
+         ], function (err, results) {
+         
+            connection.release();
+             if (err) {
+               callBack(err);
+             } 
+             else {
+                callBack(null, results);
+            }
+        });
+    }
+    catch (e) {
+    console.log("entering catch block");
+    console.log(e);
+                try{
+                connection.release();
+                }catch(e)
+                {}
+    console.log("leaving catch block");
+    }
+    }); 
+  
+  },
+
+  get_status: (staff_id, callBack) => {
+    var query;
+    query = `select * from form_status where staff_id = ?`,
+    pool.getConnection(function (err, connection) {
+        try{
+        if (err) {               
+            console.log(err);
+            // connection.release(); <-- this line is in error, as if there was an error getting a connection, then you won't have a connection to release
+            throw err;
+        }
+        connection.query(query,[ 
+            [staff_id],
+        
+        ], function (err, results) {
+         
+            connection.release();
+             if (err) {
+               callBack(error);
+             } 
+             else {
+                callBack(null, results);
+            }
+        });
+    }
+    catch (e) {
+    console.log("entering catch block");
+    console.log(e);
+                try{
+                connection.release();
+                }catch(e)
+                {}
+    console.log("leaving catch block");
+    }
+    }); 
+    
+  },
+  
+
+
     }
 
 

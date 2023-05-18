@@ -15,7 +15,16 @@ const {
     get_staff_by_campus_id,
     get_all_staff,
     ApproveFaculty,
-    get_approved_staff_for_director
+    get_approved_staff_for_director,
+    get_classroom_teaching_data,
+    get_personal_disposition_data,
+    get_personal_traits_data,
+    get_student_learning_data,
+    get_teacher_learning_data,
+    add_comments,
+    get_comments,
+    add_status,
+    get_status
 } = require("./admin.controller")
 
 router.post("/create_user",create_user);
@@ -33,6 +42,15 @@ router.get("/get_staff_by_campus_id/:staff_campus_id",get_staff_by_campus_id);
 router.get("/get_all_staff",get_all_staff);
 router.patch("/ApproveFaculty",ApproveFaculty);
 router.get("/get_approved_staff_for_director/:staff_campus_id",get_approved_staff_for_director);
+router.get("/get_classroom_teaching_data/:staff_id",get_classroom_teaching_data);
+router.get("/get_personal_disposition_data/:staff_id",get_personal_disposition_data);
+router.get("/get_personal_traits_data/:staff_id",get_personal_traits_data);
+router.get("/get_student_learning_data/:staff_id",get_student_learning_data);
+router.get("/get_teacher_learning_data/:staff_id",get_teacher_learning_data);
+router.post("/add_comments",add_comments);
+router.get("/get_comments/:staff_id",get_comments);
+router.post("/add_status",add_status);
+router.get("/get_status/:staff_id",get_status);
 
 
 module.exports = router;

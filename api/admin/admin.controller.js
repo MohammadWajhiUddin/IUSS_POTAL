@@ -14,7 +14,16 @@ const {
     get_staff_by_campus_id,
     get_all_staff,
     ApproveFaculty,
-    get_approved_staff_for_director
+    get_approved_staff_for_director,
+    get_classroom_teaching_data,
+    get_personal_disposition_data,
+    get_personal_traits_data,
+    get_student_learning_data,
+    get_teacher_learning_data,
+    add_comments,
+    get_comments,
+    add_status,
+    get_status
 } = require("./admin.service");
 
 
@@ -317,5 +326,178 @@ module.exports={
             })
         })
     },
+
+    get_classroom_teaching_data:(req,res)=>{
+        const staff_id = req.params.staff_id;
+        get_classroom_teaching_data(staff_id,(err,results)=>{
+            if(err){
+               return
+            }
+            if(!results){
+                return res.status(500).json({
+                    success:0,
+                    message:"No Record Found"
+                })
+            }
+            return res.status(200).json({
+                success:1,
+                message:"Staff data Successfully Found",
+                data:results
+            })
+        })
+    },
+    get_personal_disposition_data:(req,res)=>{
+        const staff_id = req.params.staff_id;
+        get_personal_disposition_data(staff_id,(err,results)=>{
+            if(err){
+               return
+            }
+            if(!results){
+                return res.status(500).json({
+                    success:0,
+                    message:"No Record Found"
+                })
+            }
+            return res.status(200).json({
+                success:1,
+                message:"Staff data Successfully Found",
+                data:results
+            })
+        })
+    },
+
+    get_personal_traits_data:(req,res)=>{
+        const staff_id = req.params.staff_id;
+        get_personal_traits_data(staff_id,(err,results)=>{
+            if(err){
+               return
+            }
+            if(!results){
+                return res.status(500).json({
+                    success:0,
+                    message:"No Record Found"
+                })
+            }
+            return res.status(200).json({
+                success:1,
+                message:"Staff data Successfully Found",
+                data:results
+            })
+        })
+    },
+
+    get_student_learning_data:(req,res)=>{
+        const staff_id = req.params.staff_id;
+        get_student_learning_data(staff_id,(err,results)=>{
+            if(err){
+               return
+            }
+            if(!results){
+                return res.status(500).json({
+                    success:0,
+                    message:"No Record Found"
+                })
+            }
+            return res.status(200).json({
+                success:1,
+                message:"Staff data Successfully Found",
+                data:results
+            })
+        })
+    },
+    get_teacher_learning_data:(req,res)=>{
+        const staff_id = req.params.staff_id;
+        get_teacher_learning_data(staff_id,(err,results)=>{
+            if(err){
+               return
+            }
+            if(!results){
+                return res.status(500).json({
+                    success:0,
+                    message:"No Record Found"
+                })
+            }
+            return res.status(200).json({
+                success:1,
+                message:"Staff data Successfully Found",
+                data:results
+            })
+        })
+    },
+    add_comments:(req,res)=>{
+        const body = req.body;
+        add_comments(body,(err,results)=>{
+            if(err){
+                console.log(err)
+                return res.status(500).json({
+                    success:0,
+                    message: "Database Connection Error",
+                });
+            }
+            return res.status(200).json({
+                success:1,
+                data:results
+            });
+        })
+    },
+
+    get_comments:(req,res)=>{
+        const staff_id = req.params.staff_id;
+        get_comments(staff_id,(err,results)=>{
+            if(err){
+               return
+            }
+            if(!results){
+                return res.status(500).json({
+                    success:0,
+                    message:"No Record Found"
+                })
+            }
+            return res.status(200).json({
+                success:1,
+                message:"comments",
+                data:results[0]
+            })
+        })
+    },
+
+    add_status:(req,res)=>{
+        const body = req.body;
+        add_status(body,(err,results)=>{
+            if(err){
+                console.log(err)
+                return res.status(500).json({
+                    success:0,
+                    message: "Database Connection Error",
+                });
+            }
+            return res.status(200).json({
+                success:1,
+                data:results
+            });
+        })
+    },
+
+
+    get_status:(req,res)=>{
+        const staff_id = req.params.staff_id;
+        get_status(staff_id,(err,results)=>{
+            if(err){
+               return
+            }
+            if(!results){
+                return res.status(500).json({
+                    success:0,
+                    message:"No Record Found"
+                })
+            }
+            return res.status(200).json({
+                success:1,
+                message:"comments",
+                data:results[0]
+            })
+        })
+    },
+
 
 }
