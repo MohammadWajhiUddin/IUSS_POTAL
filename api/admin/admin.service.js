@@ -1094,7 +1094,85 @@ get_classroom_teaching_data: (staff_id, callBack) => {
     }); 
     
   },
+
+
+  add_over_all_sum:(data,callBack)=>{
+    var query;
+    query = `insert into staff_representation (staff_id,staff_campus_id,staff_name,staff_over_all_sum) value (?,?,?,?)`;
+    pool.getConnection(function (err, connection) {
+        try{
+        if (err) {               
+            console.log(err);
+            // connection.release(); <-- this line is in error, as if there was an error getting a connection, then you won't have a connection to release
+            throw err;
+        }
+
+        connection.query(query,[ 
+            data.staff_id,
+            data.staff_campus_id,
+            data.staff_name,
+            data.staff_over_all_sum,
+         ], function (err, results) {
+         
+            connection.release();
+             if (err) {
+               callBack(err);
+             } 
+             else {
+                callBack(null, results);
+            }
+        });
+    }
+    catch (e) {
+    console.log("entering catch block");
+    console.log(e);
+                try{
+                connection.release();
+                }catch(e)
+                {}
+    console.log("leaving catch block");
+    }
+    }); 
   
+  },
+  
+
+  get_over_all_sum_of_staff: (staff_id, callBack) => {
+    var query;
+    query = `select * from staff_representation where staff_id = ?`,
+    pool.getConnection(function (err, connection) {
+        try{
+        if (err) {               
+            console.log(err);
+            // connection.release(); <-- this line is in error, as if there was an error getting a connection, then you won't have a connection to release
+            throw err;
+        }
+        connection.query(query,[ 
+            [staff_id],
+        
+        ], function (err, results) {
+         
+            connection.release();
+             if (err) {
+               callBack(error);
+             } 
+             else {
+                callBack(null, results);
+            }
+        });
+    }
+    catch (e) {
+    console.log("entering catch block");
+    console.log(e);
+                try{
+                connection.release();
+                }catch(e)
+                {}
+    console.log("leaving catch block");
+    }
+    }); 
+    
+  },
 
 
     }

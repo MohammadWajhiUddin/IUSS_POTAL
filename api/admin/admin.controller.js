@@ -23,7 +23,9 @@ const {
     add_comments,
     get_comments,
     add_status,
-    get_status
+    get_status,
+    add_over_all_sum,
+    get_over_all_sum_of_staff
 } = require("./admin.service");
 
 
@@ -499,5 +501,40 @@ module.exports={
         })
     },
 
+    add_over_all_sum:(req,res)=>{
+        const body = req.body;
+        add_over_all_sum(body,(err,results)=>{
+            if(err){
+                console.log(err)
+                return res.status(500).json({
+                    success:0,
+                    message: "Database Connection Error",
+                });
+            }
+            return res.status(200).json({
+                success:1,
+                data:results
+            });
+        })
+    },
+    get_over_all_sum_of_staff:(req,res)=>{
+        const staff_id = req.params.staff_id;
+        get_over_all_sum_of_staff(staff_id,(err,results)=>{
+            if(err){
+               return
+            }
+            if(!results){
+                return res.status(500).json({
+                    success:0,
+                    message:"No Record Found"
+                })
+            }
+            return res.status(200).json({
+                success:1,
+                message:"comments",
+                data:results[0]
+            })
+        })
+    },
 
 }
