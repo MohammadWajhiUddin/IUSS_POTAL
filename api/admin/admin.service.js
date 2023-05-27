@@ -709,10 +709,12 @@ Reflectstrongcommandinassignedsubject,
 
   ApproveFaculty:(data,callBack)=>{
     pool.query(
-        `update staff_details set approved= ?    where staff_id = ?`,
+//        `update test  set approved= ?    where staff_id = ?`,
+
+        `update test  set ${data.columnname}= ?    where id = ?`,
         [
-            data.approved,
-            data.staff_id
+            data.value,
+            data.id
 
         ],
         (error,results)=>{
@@ -1173,6 +1175,151 @@ get_classroom_teaching_data: (staff_id, callBack) => {
     }); 
     
   },
+
+
+
+
+update_classroom_teaching:(data,callBack)=>{
+    pool.query(
+
+        `update classroom_teaching  set ${data.columnname}= ?,  sum_of_one_one = ? ,sum_of_one_two = ? , sum_of_one_three = ? , sum_of_one_four = ? ,over_all_sum_of_one = ?   where staff_id = ?`,
+        [
+            data.value,
+            data.sum_of_one_one,
+            data.sum_of_one_two,
+            data.sum_of_one_three,
+            data.sum_of_one_four,
+            data.over_all_sum_of_one,
+            data.staff_id
+
+        ],
+        (error,results)=>{
+            if(error){
+                callBack(error)
+            }
+            return callBack(null,results)
+        }
+    )
+},
+
+
+update_personal_disposition:(data,callBack)=>{
+    pool.query(
+
+        `update personal_disposition  set ${data.columnname}= ?,  sum_of_two_one = ? ,sum_of_two_two = ? , sum_of_two_three = ? , sum_of_two_four = ? ,over_all_sum_of_two = ?   where staff_id = ?`,
+        [
+            data.value,
+            data.sum_of_two_one,
+            data.sum_of_two_two,
+            data.sum_of_two_three,
+            data.sum_of_two_four,
+            data.over_all_sum_of_two,
+            data.staff_id
+
+        ],
+        (error,results)=>{
+            if(error){
+                callBack(error)
+            }
+            return callBack(null,results)
+        }
+    )
+},
+
+update_personal_traits:(data,callBack)=>{
+    pool.query(
+
+        `update  personal_traits  set ${data.columnname}= ?,  sum_of_five_one = ? ,sum_of_five_two = ? , sum_of_five_three = ? , sum_of_five_four = ? ,over_all_sum_of_five = ?   where staff_id = ?`,
+        [
+            data.value,
+            data.sum_of_five_one,
+            data.sum_of_five_two,
+            data.sum_of_five_three,
+            data.sum_of_five_four,
+            data.over_all_sum_of_five,
+            data.staff_id
+
+        ],
+        (error,results)=>{
+            if(error){
+                callBack(error)
+            }
+            return callBack(null,results)
+        }
+    )
+},
+
+
+
+
+update_student_learning:(data,callBack)=>{
+    pool.query(
+
+        `update  student_learning  set ${data.columnname}= ?,  sum_of_three_one = ? ,sum_of_three_two = ? , sum_of_three_three = ? , sum_of_three_four = ? ,over_all_sum_of_three = ?   where staff_id = ?`,
+        [
+            data.value,
+            data.sum_of_three_one,
+            data.sum_of_three_two,
+            data.sum_of_three_three,
+            data.sum_of_three_four,
+            data.over_all_sum_of_three,
+            data.staff_id
+
+        ],
+        (error,results)=>{
+            if(error){
+                callBack(error)
+            }
+            return callBack(null,results)
+        }
+    )
+},
+
+
+update_teacher_learning:(data,callBack)=>{
+    pool.query(
+
+        `update  teacher_learning  set ${data.columnname}= ?,  sum_of_four_one = ? ,sum_of_four_two = ? , sum_of_four_three = ? , sum_of_four_four = ? ,over_all_sum_of_four = ?   where staff_id = ?`,
+        [
+            data.value,
+            data.sum_of_four_one,
+            data.sum_of_four_two,
+            data.sum_of_four_three,
+            data.sum_of_four_four,
+            data.over_all_sum_of_four,
+            data.staff_id
+
+        ],
+        (error,results)=>{
+            if(error){
+                callBack(error)
+            }
+            return callBack(null,results)
+        }
+    )
+},
+
+update_staff_representation:(data,callBack)=>{
+    pool.query(
+
+        `update staff_representation  set staff_over_all_sum = ?  where staff_id = ?`,
+        [
+            data.staff_over_all_sum,
+            data.staff_id,
+
+
+        ],
+        (error,results)=>{
+            if(error){
+                callBack(error)
+            }
+            return callBack(null,results)
+        }
+    )
+},
+
+
+
 
 
     }

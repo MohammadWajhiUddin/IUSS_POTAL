@@ -26,7 +26,13 @@ const {
     add_status,
     get_status,
     add_over_all_sum,
-    get_over_all_sum_of_staff
+    get_over_all_sum_of_staff,
+    update_classroom_teaching,
+    update_personal_disposition,
+    update_personal_traits,
+    update_student_learning,
+    update_teacher_learning,
+    update_staff_representation
 } = require("./admin.controller")
 
 router.post("/create_user",create_user);
@@ -55,6 +61,15 @@ router.post("/add_status",add_status);
 router.get("/get_status/:staff_id",get_status);
 router.post("/add_over_all_sum",add_over_all_sum);
 router.get("/get_over_all_sum_of_staff/:staff_id",get_over_all_sum_of_staff);
+
+
+router.patch("/update_classroom_teaching",update_classroom_teaching);
+router.patch("/update_personal_disposition",update_personal_disposition);
+router.patch("/update_personal_traits",update_personal_traits);
+router.patch("/update_student_learning",update_student_learning);
+router.patch("/update_teacher_learning",update_teacher_learning);
+
+router.patch("/update_staff_representation",update_staff_representation);
 
 
 module.exports = router;

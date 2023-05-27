@@ -25,7 +25,13 @@ const {
     add_status,
     get_status,
     add_over_all_sum,
-    get_over_all_sum_of_staff
+    get_over_all_sum_of_staff,
+    update_classroom_teaching,
+    update_personal_disposition,
+    update_personal_traits,
+    update_student_learning,
+    update_teacher_learning,
+    update_staff_representation
 } = require("./admin.service");
 
 
@@ -534,6 +540,127 @@ module.exports={
                 message:"comments",
                 data:results[0]
             })
+        })
+    },
+    update_classroom_teaching:(req,res)=>{
+        const body = req.body;
+        update_classroom_teaching(body, (err,results) => {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          if(!results){
+              return res.json({
+                  success:0,
+                  message:"failed to approve Faculty"
+              });
+          }
+          return res.json({
+            success: 1,
+            message: " approve updated successfully"
+          });
+        })
+    },
+
+    update_personal_disposition:(req,res)=>{
+        const body = req.body;
+        update_personal_disposition(body, (err,results) => {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          if(!results){
+              return res.json({
+                  success:0,
+                  message:"failed to approve Faculty"
+              });
+          }
+          return res.json({
+            success: 1,
+            message: " approve updated successfully"
+          });
+        })
+    },
+
+
+    update_personal_traits:(req,res)=>{
+        const body = req.body;
+        update_personal_traits(body, (err,results) => {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          if(!results){
+              return res.json({
+                  success:0,
+                  message:"failed to approve Faculty"
+              });
+          }
+          return res.json({
+            success: 1,
+            message: " approve updated successfully"
+          });
+        })
+    },
+
+
+    update_student_learning:(req,res)=>{
+        const body = req.body;
+        update_student_learning(body, (err,results) => {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          if(!results){
+              return res.json({
+                  success:0,
+                  message:"failed to approve Faculty"
+              });
+          }
+          return res.json({
+            success: 1,
+            message: " approve updated successfully"
+          });
+        })
+    },
+
+    update_teacher_learning:(req,res)=>{
+        const body = req.body;
+        update_teacher_learning(body, (err,results) => {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          if(!results){
+              return res.json({
+                  success:0,
+                  message:"failed to approve Faculty"
+              });
+          }
+          return res.json({
+            success: 1,
+            message: " approve updated successfully"
+          });
+        })
+    },
+
+    update_staff_representation:(req,res)=>{
+        const body = req.body;
+        update_staff_representation(body, (err,results) => {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          if(!results){
+              return res.json({
+                  success:0,
+                  message:"failed to approve Faculty"
+              });
+          }
+          return res.json({
+            success: 1,
+            message: " approve updated successfully"
+          });
         })
     },
 
