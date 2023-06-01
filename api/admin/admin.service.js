@@ -1320,7 +1320,42 @@ update_staff_representation:(data,callBack)=>{
 
 
 
-
+data_for_graph: (campus_id, callBack) => {
+    var query;
+    query = `select staff_id, staff_over_all_sum from staff_representation where staff_campus_id = ? ORDER BY staff_over_all_sum DESC`,
+    pool.getConnection(function (err, connection) {
+        try{
+        if (err) {               
+            console.log(err);
+            // connection.release(); <-- this line is in error, as if there was an error getting a connection, then you won't have a connection to release
+            throw err;
+        }
+        connection.query(query,[ 
+            [campus_id],
+        
+        ], function (err, results) {
+         
+            connection.release();
+             if (err) {
+               callBack(error);
+             } 
+             else {
+                callBack(null, results);
+            }
+        });
+    }
+    catch (e) {
+    console.log("entering catch block");
+    console.log(e);
+                try{
+                connection.release();
+                }catch(e)
+                {}
+    console.log("leaving catch block");
+    }
+    }); 
+    
+  },
 
     }
 

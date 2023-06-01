@@ -32,7 +32,8 @@ const {
     update_personal_traits,
     update_student_learning,
     update_teacher_learning,
-    update_staff_representation
+    update_staff_representation,
+    data_for_graph
 } = require("./admin.controller")
 
 router.post("/create_user",create_user);
@@ -70,6 +71,7 @@ router.patch("/update_student_learning",update_student_learning);
 router.patch("/update_teacher_learning",update_teacher_learning);
 
 router.patch("/update_staff_representation",update_staff_representation);
+router.get("/data_for_graph/:campus_id",data_for_graph);
 
 
 module.exports = router;

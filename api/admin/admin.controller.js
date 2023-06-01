@@ -31,7 +31,8 @@ const {
     update_personal_traits,
     update_student_learning,
     update_teacher_learning,
-    update_staff_representation
+    update_staff_representation,
+    data_for_graph
 } = require("./admin.service");
 
 
@@ -661,6 +662,26 @@ module.exports={
             success: 1,
             message: " approve updated successfully"
           });
+        })
+    },
+
+    data_for_graph:(req,res)=>{
+        const campus_id = req.params.campus_id;
+        data_for_graph(campus_id,(err,results)=>{
+            if(err){
+               return
+            }
+            if(!results){
+                return res.status(500).json({
+                    success:0,
+                    message:"No Record Found"
+                })
+            }
+            return res.status(200).json({
+                success:1,
+                message:"comments",
+                data:results
+            })
         })
     },
 
