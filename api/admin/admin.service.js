@@ -1322,7 +1322,7 @@ update_staff_representation:(data,callBack)=>{
 
 data_for_graph: (campus_id, callBack) => {
     var query;
-    query = `select staff_id, staff_over_all_sum from staff_representation where staff_campus_id = ? ORDER BY staff_over_all_sum DESC`,
+    query = `select * from staff_representation where staff_campus_id = ? ORDER BY staff_over_all_sum DESC`,
     pool.getConnection(function (err, connection) {
         try{
         if (err) {               
