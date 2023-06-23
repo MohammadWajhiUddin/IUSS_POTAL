@@ -33,7 +33,12 @@ const {
     update_student_learning,
     update_teacher_learning,
     update_staff_representation,
-    data_for_graph
+    data_for_graph,
+    get_all_branchheads,add_branch_heads,
+    add_status_branch_head,
+    get_status_for_branch_head,
+    get_branchheaddata,
+    update_branchhead
 } = require("./admin.controller")
 
 router.post("/create_user",create_user);
@@ -72,6 +77,13 @@ router.patch("/update_teacher_learning",update_teacher_learning);
 
 router.patch("/update_staff_representation",update_staff_representation);
 router.get("/data_for_graph/:campus_id",data_for_graph);
+router.get("/get_all_branchheads",get_all_branchheads);
+router.post("/add_branch_heads",add_branch_heads);
+router.post("/add_status_branch_head",add_status_branch_head);
+
+router.get("/get_status_for_branch_head/:staff_id",get_status_for_branch_head);
+router.get("/get_branchheaddata/:staff_id",get_branchheaddata);
+router.patch("/update_branchhead",update_branchhead);
 
 
 module.exports = router;

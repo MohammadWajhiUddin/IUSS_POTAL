@@ -1357,6 +1357,250 @@ data_for_graph: (campus_id, callBack) => {
     
   },
 
+
+  get_all_branchheads:(callBack)=>{
+    var query;
+    query = `select * from branchead_details`,
+    pool.getConnection(function (err, connection) {
+        try{
+        if (err) {               
+            console.log(err);
+            // connection.release(); <-- this line is in error, as if there was an error getting a connection, then you won't have a connection to release
+            throw err;
+        }
+        connection.query(query,[ 
+            [],
+        
+        ], function (err, results) {
+         
+            connection.release();
+             if (err) {
+               callBack(error);
+             } 
+             else {
+                callBack(null, results);
+            }
+        });
+    }
+    catch (e) {
+    console.log("entering catch block");
+    console.log(e);
+                try{
+                connection.release();
+                }catch(e)
+                {}
+    console.log("leaving catch block");
+    }
+    }); 
+
+},
+
+add_branch_heads:(data,callBack)=>{
+    var query;
+    query = `insert into  branchead_evaluation (
+        branchhead_id,A1,A2,A3,A4,AC1, B1,B2,B3,B4,BC,C1,C2,C3,C4,CC,D1,D2,D3,D4,DC,E1,E2,E3,E4,C5,S1,S2,S3,S4,S5,overallsum
+       
+        ) value (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+    pool.getConnection(function (err, connection) {
+        try{
+        if (err) {               
+            console.log(err);
+            // connection.release(); <-- this line is in error, as if there was an error getting a connection, then you won't have a connection to release
+            throw err;
+        }
+
+        connection.query(query,[ 
+            data.branchhead_id,
+            data.one_point_one_a,
+            data.one_point_one_b,
+            data.one_point_one_c,
+            data.one_point_one_d,
+            data.commenta,
+            data.one_point_two_a,
+            data.one_point_two_b,
+            data.one_point_two_c,
+            data.one_point_two_d,
+            data.commentb,
+            data.one_point_three_a,
+            data.one_point_three_b,
+            data.one_point_three_c,
+            data.one_point_three_d,
+            data.commentc,
+            data.one_point_four_a,
+            data.one_point_four_b,
+            data.one_point_four_c,
+            data.one_point_four_d,
+            data.commentd,
+            data.one_point_five_a,
+            data.one_point_five_b,
+            data.one_point_five_c,
+            data.one_point_five_d,
+            data.commente,
+            data.sum_of_one_one,
+            data.sum_of_one_two,
+            data.sum_of_one_three,
+            data.sum_of_one_four,
+            data.sum_of_one_five,
+            data.over_all_sum_of_one
+         ], function (err, results) {
+         
+            connection.release();
+             if (err) {
+               callBack(err);
+             } 
+             else {
+                callBack(null, results);
+            }
+        });
+    }
+    catch (e) {
+    console.log("entering catch block");
+    console.log(e);
+                try{
+                connection.release();
+                }catch(e)
+                {}
+    console.log("leaving catch block");
+    }
+    }); 
+  
+  },
+add_status_branch_head:(data,callBack)=>{
+    var query;
+    query = `insert into branchhead_status (branchhead_id,status) value (?,?)`;
+    pool.getConnection(function (err, connection) {
+        try{
+        if (err) {               
+            console.log(err);
+            // connection.release(); <-- this line is in error, as if there was an error getting a connection, then you won't have a connection to release
+            throw err;
+        }
+
+        connection.query(query,[ 
+            data.branchhead_id,
+            data.status,
+         ], function (err, results) {
+         
+            connection.release();
+             if (err) {
+               callBack(err);
+             } 
+             else {
+                callBack(null, results);
+            }
+        });
+    }
+    catch (e) {
+    console.log("entering catch block");
+    console.log(e);
+                try{
+                connection.release();
+                }catch(e)
+                {}
+    console.log("leaving catch block");
+    }
+    }); 
+  
+  },
+
+get_status_for_branch_head: (branchhead_id, callBack) => {
+    var query;
+    query = `select * from branchhead_status where branchhead_id = ?`,
+    pool.getConnection(function (err, connection) {
+        try{
+        if (err) {               
+            console.log(err);
+            // connection.release(); <-- this line is in error, as if there was an error getting a connection, then you won't have a connection to release
+            throw err;
+        }
+        connection.query(query,[ 
+            [branchhead_id],
+        
+        ], function (err, results) {
+         
+            connection.release();
+             if (err) {
+               callBack(error);
+             } 
+             else {
+                callBack(null, results);
+            }
+        });
+    }
+    catch (e) {
+    console.log("entering catch block");
+    console.log(e);
+                try{
+                connection.release();
+                }catch(e)
+                {}
+    console.log("leaving catch block");
+    }
+    }); 
+    
+  },
+
+get_branchheaddata: (branchhead_id, callBack) => {
+    var query;
+    query = `select * from branchead_evaluation where branchhead_id = ?`,
+    pool.getConnection(function (err, connection) {
+        try{
+        if (err) {               
+            console.log(err);
+            // connection.release(); <-- this line is in error, as if there was an error getting a connection, then you won't have a connection to release
+            throw err;
+        }
+        connection.query(query,[ 
+            [branchhead_id],
+        
+        ], function (err, results) {
+         
+            connection.release();
+             if (err) {
+               callBack(error);
+             } 
+             else {
+                callBack(null, results);
+            }
+        });
+    }
+    catch (e) {
+    console.log("entering catch block");
+    console.log(e);
+                try{
+                connection.release();
+                }catch(e)
+                {}
+    console.log("leaving catch block");
+    }
+    }); 
+    
+  },
+
+
+  update_branchhead:(data,callBack)=>{
+    pool.query(
+
+        `update branchead_evaluation  set ${data.columnname}= ?,  S1 = ? ,S2 = ? , S3 = ? , S4 = ?,S5=? ,overallsum = ?   where branchhead_id = ?`,
+        [
+            data.value,
+            data.sum_of_one_one,
+            data.sum_of_one_two,
+            data.sum_of_one_three,
+            data.sum_of_one_four,
+            data.sum_of_one_five,
+            data.overallsum,
+            data.staff_id
+
+        ],
+        (error,results)=>{
+            if(error){
+                callBack(error)
+            }
+            return callBack(null,results)
+        }
+    )
+},
     }
 
 

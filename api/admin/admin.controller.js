@@ -32,7 +32,10 @@ const {
     update_student_learning,
     update_teacher_learning,
     update_staff_representation,
-    data_for_graph
+    data_for_graph,get_all_branchheads,add_branch_heads,
+    add_status_branch_head,
+    get_status_for_branch_head,get_branchheaddata,
+    update_branchhead
 } = require("./admin.service");
 
 
@@ -684,5 +687,116 @@ module.exports={
             })
         })
     },
+    get_all_branchheads:(req,res)=>{
+        get_all_branchheads((err,results)=>{
+            if(err){
+                return res.json({
+                    status:0,
+                    message:"Error in connection"
+                });
+            }
+            if(!results){
+                return res.json({
+                    success:0,
+                    message:"failed to get any admin"
+                });
+            }
+            return res.json({
+                status:1,
+                message1:"Admins fetched Successfully",
+                message:results
+            })
+        })
+    },
+    add_branch_heads:(req,res)=>{
+        const body = req.body;
+        add_branch_heads(body,(err,results)=>{
+            if(err){
+                console.log(err)
+                return res.status(500).json({
+                    success:0,
+                    message: "Database Connection Error",
+                });
+            }
+            return res.status(200).json({
+                success:1,
+                data:results
+            });
+        })
+    },
+    add_status_branch_head:(req,res)=>{
+        const body = req.body;
+        add_status_branch_head(body,(err,results)=>{
+            if(err){
+                console.log(err)
+                return res.status(500).json({
+                    success:0,
+                    message: "Database Connection Error",
+                });
+            }
+            return res.status(200).json({
+                success:1,
+                data:results
+            });
+        })
+    },
+    get_status_for_branch_head:(req,res)=>{
+        const branchhead_id = req.params.staff_id;
+        get_status_for_branch_head(branchhead_id,(err,results)=>{
+            if(err){
+               return
+            }
+            if(!results){
+                return res.status(500).json({
+                    success:0,
+                    message:"No Record Found"
+                })
+            }
+            return res.status(200).json({
+                success:1,
+                message:"comments",
+                data:results[0]
+            })
+        })
+    },
 
+    get_branchheaddata:(req,res)=>{
+        const branchhead_id = req.params.staff_id;
+        get_branchheaddata(branchhead_id,(err,results)=>{
+            if(err){
+               return
+            }
+            if(!results){
+                return res.status(500).json({
+                    success:0,
+                    message:"No Record Found"
+                })
+            }
+            return res.status(200).json({
+                success:1,
+                message:"data fetched",
+                data:results
+            })
+        })
+    },
+
+    update_branchhead:(req,res)=>{
+        const body = req.body;
+        update_branchhead(body, (err,results) => {
+          if (err) {
+            console.log(err);
+            return;
+          }
+          if(!results){
+              return res.json({
+                  success:0,
+                  message:"failed to approve Faculty"
+              });
+          }
+          return res.json({
+            success: 1,
+            message: " approve updated successfully"
+          });
+        })
+    },
 }
